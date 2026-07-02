@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Bohera – بوهيرا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+    <style>
+        :root{
+            --sand:#F5E2B8;--cream:#FAF3E4;--terra:#B85C38;
+            --brown:#3D2010;--warm:#7A4A2A;--gold:#C89B4A;
+            --gold-light:#E8C97A;--off:#FBF6EC;--dark:#1E0E05;--olive:#5A6B2E;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Tajawal',sans-serif;background:var(--off);color:var(--brown);overflow-x:hidden;}
+        ::-webkit-scrollbar{width:5px;}
+        ::-webkit-scrollbar-track{background:var(--cream);}
+        ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+
+        /* LOADER */
+        #loader{position:fixed;inset:0;background:var(--brown);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;transition:opacity .6s,visibility .6s;}
+        #loader.hide{opacity:0;visibility:hidden;}
+        .ld-logo{font-family:'Amiri',serif;font-size:3.5rem;color:var(--gold);animation:ldpulse 1.5s ease-in-out infinite;}
+        .ld-bar{width:140px;height:2px;background:rgba(200,155,74,.15);border-radius:1px;overflow:hidden;}
+        .ld-fill{height:100%;width:0;background:var(--gold);animation:ldfill 1.8s ease forwards;}
+        @keyframes ldpulse{0%,100%{opacity:.5;transform:scale(.97);}50%{opacity:1;transform:scale(1);}}
+        @keyframes ldfill{0%{width:0;}100%{width:100%;}}
+
+        /* NAVBAR */
+        .navbar{background:rgba(29,14,5,.97)!important;border-bottom:2px solid var(--gold);padding:.7rem 1.5rem;position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);transition:box-shadow .3s;}
+        .navbar.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.4);}
+        .nav-brand{font-family:'Amiri',serif;font-size:2rem;background:linear-gradient(135deg,var(--gold),var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.06em;text-decoration:none;}
+        .nav-link{color:var(--sand)!important;font-family:'Tajawal',sans-serif;font-weight:500;font-size:.95rem;letter-spacing:.04em;position:relative;padding:.4rem .8rem!important;transition:color .2s;}
+        .nav-link::after{content:'';position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+        .nav-link:hover{color:var(--gold)!important;}
+        .nav-link:hover::after{width:100%;}
+        .btn-nav-cta{background:linear-gradient(135deg,var(--terra),#8B3A1E);color:#fff!important;border-radius:2px;font-family:'Tajawal',sans-serif;font-weight:700;padding:.45rem 1.4rem!important;letter-spacing:.06em;border:none;transition:transform .15s,box-shadow .15s;}
+        .btn-nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,92,56,.4);}
+        .btn-nav-cta::after{display:none!important;}
+
+        /* HERO */
+        .hero{min-height:100vh;background:linear-gradient(155deg,var(--dark) 0%,var(--brown) 45%,var(--warm) 75%,var(--terra) 100%);position:relative;overflow:hidden;display:flex;align-items:center;}
+        .hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,rgba(200,155,74,.04) 0,rgba(200,155,74,.04) 1px,transparent 1px,transparent 24px),repeating-linear-gradient(-60deg,rgba(200,155,74,.04) 0,rgba(200,155,74,.04) 1px,transparent 1px,transparent 24px);pointer-events:none;}
+        .hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,155,74,.12) 0%,transparent 70%);top:50%;left:55%;transform:translate(-50%,-50%);pointer-events:none;animation:glow 4s ease-in-out infinite alternate;}
+        @keyframes glow{from{transform:translate(-50%,-50%) scale(1);}to{transform:translate(-50%,-50%) scale(1.15);}}
+
+        .hero-eyebrow{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;}
+        .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:inline-block;width:28px;height:1px;background:var(--gold);}
+        .hero h1{font-family:'Amiri',serif;font-size:clamp(3.2rem,9vw,6.5rem);color:var(--sand);line-height:1.05;margin-bottom:1.4rem;text-shadow:0 4px 30px rgba(0,0,0,.3);}
+        .hero h1 em{font-style:italic;color:var(--gold-light);display:block;font-size:.72em;margin-bottom:-.1em;}
+        .hero-desc{color:rgba(245,226,184,.75);font-size:1.1rem;line-height:2;max-width:460px;margin-bottom:2rem;}
+        .btn-hp{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--brown);border:none;border-radius:0;font-family:'Tajawal',sans-serif;font-weight:800;font-size:1rem;padding:.9rem 2.4rem;letter-spacing:.06em;text-decoration:none;display:inline-block;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;}
+        .btn-hp:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(200,155,74,.4);color:var(--brown);}
+        .btn-hg{background:transparent;color:var(--gold);border:1.5px solid var(--gold);border-radius:0;font-family:'Tajawal',sans-serif;font-weight:700;font-size:.95rem;padding:.85rem 2rem;letter-spacing:.06em;text-decoration:none;display:inline-block;transition:all .2s;}
+        .btn-hg:hover{background:var(--gold);color:var(--brown);}
+        .hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(200,155,74,.2);}
+        .hero-stat-num{font-family:'Amiri',serif;font-size:2.2rem;color:var(--gold);line-height:1;}
+        .hero-stat-label{font-size:.73rem;color:rgba(245,226,184,.5);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem;}
+        .hero-img-frame{position:relative;}
+        .hero-img-frame img{width:100%;max-height:88vh;object-fit:cover;display:block;clip-path:polygon(0 0,100% 0,100% 92%,88% 100%,0 100%);}
+        .hero-img-frame::before{content:'';position:absolute;top:-14px;right:-14px;width:60%;height:60%;border-top:2px solid var(--gold);border-right:2px solid var(--gold);z-index:-1;pointer-events:none;}
+        .hero-img-frame::after{content:'';position:absolute;bottom:-14px;left:-14px;width:40%;height:40%;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold);z-index:-1;pointer-events:none;}
+        .hero-badge{position:absolute;bottom:2.5rem;right:-1.5rem;background:var(--brown);border:2px solid var(--gold);padding:.9rem 1.4rem;z-index:3;text-align:center;animation:float 3s ease-in-out infinite;}
+        @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+        .hero-badge-num{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold);line-height:1;}
+        .hero-badge-txt{font-size:.68rem;color:var(--sand);letter-spacing:.1em;margin-top:.2rem;}
+        .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(200,155,74,.5);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;animation:bounce 2s ease-in-out infinite;}
+        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+        /* MARQUEE */
+        .marquee-strip{background:linear-gradient(90deg,var(--terra),var(--warm),var(--terra));padding:.55rem 0;overflow:hidden;white-space:nowrap;}
+        .marquee-track{display:inline-block;animation:marquee 18s linear infinite;}
+        .marquee-item{display:inline-block;font-family:'Tajawal',sans-serif;font-size:.8rem;font-weight:700;color:var(--sand);letter-spacing:.18em;text-transform:uppercase;padding:0 2.5rem;}
+        .marquee-item i{color:var(--gold-light);margin-left:.5rem;}
+        @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+        /* SECTION HEADER */
+        .sec-eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);font-weight:700;display:block;margin-bottom:.5rem;}
+        .sec-title{font-family:'Amiri',serif;font-size:clamp(2rem,5vw,3rem);color:var(--brown);}
+        .ornament{display:flex;align-items:center;gap:10px;margin:1rem 0 3rem;}
+        .ornament::before,.ornament::after{content:'';flex:1;height:1px;background:linear-gradient(to left,transparent,var(--gold));}
+        .ornament::after{background:linear-gradient(to right,transparent,var(--gold));}
+        .ornament span{color:var(--gold);font-size:1rem;}
+
+        /* PRODUCTS */
+        #products{background:var(--cream);padding:90px 0;}
+        .product-card{border:none;border-radius:0;background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.25,.8,.25,1),box-shadow .3s;box-shadow:0 2px 12px rgba(61,32,16,.06);}
+        .product-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(61,32,16,.16);}
+        .card-img-wrap{overflow:hidden;position:relative;}
+        .card-img-wrap img{height:370px;object-fit:cover;width:100%;transition:transform .5s cubic-bezier(.25,.8,.25,1);display:block;}
+        .product-card:hover .card-img-wrap img{transform:scale(1.07);}
+        .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(29,14,5,.7) 0%,transparent 60%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1.2rem;}
+        .product-card:hover .card-overlay{opacity:1;}
+        .card-overlay-btn{color:#fff;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;display:flex;align-items:center;gap:.5rem;}
+        .price-badge{position:absolute;top:14px;right:14px;background:var(--brown);color:var(--gold);font-family:'Amiri',serif;font-size:1.1rem;padding:4px 14px;z-index:2;letter-spacing:.04em;box-shadow:0 4px 12px rgba(0,0,0,.2);}
+        .suit-badge{position:absolute;top:14px;left:14px;background:rgba(184,92,56,.9);color:#fff;font-family:'Tajawal',sans-serif;font-size:.68rem;font-weight:700;padding:3px 10px;z-index:2;letter-spacing:.1em;text-transform:uppercase;}
+        .product-card .card-body{padding:1.3rem 1.4rem 1.4rem;}
+        .card-name{font-family:'Amiri',serif;font-size:1.25rem;color:var(--brown);margin-bottom:.3rem;line-height:1.3;}
+        .card-sub{font-size:.75rem;color:var(--warm);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.7rem;}
+        .tag-list{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;}
+        .tag{border:1px solid rgba(200,155,74,.5);color:var(--warm);font-size:.68rem;padding:2px 10px;letter-spacing:.07em;font-family:'Tajawal',sans-serif;}
+        .btn-card{width:100%;background:transparent;border:1.5px solid var(--brown);color:var(--brown);border-radius:0;font-family:'Tajawal',sans-serif;font-weight:700;padding:.58rem;font-size:.9rem;letter-spacing:.05em;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;}
+        .btn-card:hover{background:var(--brown);color:var(--sand);}
+        .btn-card i{transition:transform .2s;}
+        .btn-card:hover i{transform:translateX(-4px);}
+
+        /* MODAL */
+        .modal-content{border-radius:0;border:none;background:var(--off);font-family:'Tajawal',sans-serif;overflow:hidden;}
+        .modal-header{background:linear-gradient(135deg,var(--dark),var(--brown));border-bottom:2px solid var(--gold);padding:1.3rem 1.8rem;}
+        .modal-title{font-family:'Amiri',serif;color:var(--sand);font-size:1.55rem;}
+        .modal-close-btn{background:none;border:1.5px solid rgba(200,155,74,.4);color:var(--gold);border-radius:2px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:1rem;}
+        .modal-close-btn:hover{background:var(--gold);color:var(--brown);}
+        .modal-img-wrap{position:relative;}
+        .modal-img-wrap img{width:100%;height:100%;min-height:420px;object-fit:cover;display:block;}
+        .modal-img-price{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(29,14,5,.9),transparent);padding:2rem 1.5rem 1.2rem;font-family:'Amiri',serif;font-size:2rem;color:var(--gold);}
+        .modal-img-price small{display:block;font-size:.75rem;font-family:'Tajawal',sans-serif;color:rgba(245,226,184,.6);letter-spacing:.1em;margin-bottom:.2rem;}
+        .modal-body-inner{padding:1.8rem;}
+        .modal-sec-lbl{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;}
+        .modal-sec-lbl::after{content:'';flex:1;height:1px;background:rgba(200,155,74,.25);}
+        .piece-block{background:#fff;border-right:3px solid var(--gold);padding:.9rem 1.1rem;margin-bottom:.7rem;transition:border-color .2s;}
+        .piece-block:hover{border-color:var(--terra);}
+        .piece-name{font-family:'Amiri',serif;font-size:1.05rem;color:var(--terra);margin-bottom:.3rem;}
+        .piece-desc{font-size:.88rem;color:var(--warm);line-height:1.8;margin-bottom:.4rem;}
+        .piece-fabric{font-size:.73rem;font-weight:700;color:var(--olive);letter-spacing:.06em;}
+        .modal-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0 1.4rem;}
+        .modal-tag{background:var(--sand);border:1px solid rgba(200,155,74,.4);color:var(--warm);font-size:.72rem;padding:3px 12px;font-family:'Tajawal',sans-serif;}
+        .btn-modal-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:0;font-family:'Tajawal',sans-serif;font-weight:800;font-size:1rem;padding:.85rem;width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;transition:filter .2s,transform .15s;letter-spacing:.05em;text-decoration:none;}
+        .btn-modal-wa:hover{filter:brightness(1.1);transform:translateY(-1px);color:#fff;}
+
+        /* ABOUT */
+        #about{background:linear-gradient(155deg,var(--dark) 0%,var(--brown) 100%);padding:90px 0;color:var(--sand);}
+        #about .sec-eyebrow{color:var(--gold);}
+        #about .sec-title{color:var(--sand);}
+        #about .ornament::before{background:linear-gradient(to left,transparent,rgba(200,155,74,.4));}
+        #about .ornament::after{background:linear-gradient(to right,transparent,rgba(200,155,74,.4));}
+        .about-text{font-size:1.05rem;line-height:2.1;color:rgba(245,226,184,.75);max-width:480px;}
+        .feature-card{border:1px solid rgba(200,155,74,.15);padding:1.5rem 1.2rem;text-align:center;transition:border-color .3s,transform .3s;background:rgba(255,255,255,.03);}
+        .feature-card:hover{border-color:rgba(200,155,74,.5);transform:translateY(-4px);}
+        .feature-icon{width:54px;height:54px;background:linear-gradient(135deg,rgba(200,155,74,.15),rgba(200,155,74,.05));border:1px solid rgba(200,155,74,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.3rem;color:var(--gold);}
+        .feature-title{font-family:'Amiri',serif;font-size:1.1rem;color:var(--sand);margin-bottom:.3rem;}
+        .feature-desc{font-size:.83rem;color:rgba(245,226,184,.5);line-height:1.7;}
+        .btn-wa-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold);border-radius:0;font-family:'Tajawal',sans-serif;font-weight:700;font-size:.95rem;padding:.85rem 2rem;letter-spacing:.06em;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s;margin-top:1.5rem;}
+        .btn-wa-outline:hover{background:var(--gold);color:var(--brown);}
+
+        /* CONTACT */
+        #contact{background:var(--sand);padding:80px 0;}
+        .contact-card{background:#fff;border-top:4px solid var(--gold);padding:3rem 2.5rem;text-align:center;box-shadow:0 10px 40px rgba(61,32,16,.08);max-width:560px;margin:0 auto;}
+        .contact-card h3{font-family:'Amiri',serif;font-size:2rem;color:var(--brown);margin-bottom:.5rem;}
+        .contact-card p{color:var(--warm);line-height:1.9;margin-bottom:1.8rem;}
+        .btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:0;font-family:'Tajawal',sans-serif;font-weight:800;font-size:1.1rem;padding:1rem 2.8rem;display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;transition:filter .2s,transform .15s;letter-spacing:.05em;}
+        .btn-wa:hover{filter:brightness(1.1);transform:translateY(-2px);color:#fff;}
+        .contact-note{font-size:.8rem;color:rgba(122,74,42,.6);margin-top:1rem;letter-spacing:.05em;}
+
+        /* FOOTER */
+        footer{background:var(--dark);padding:2.5rem 2rem;text-align:center;border-top:2px solid rgba(200,155,74,.15);}
+        .footer-brand{font-family:'Amiri',serif;font-size:2rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem;}
+        .footer-tagline{font-size:.78rem;color:rgba(245,226,184,.35);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;}
+        .footer-divider{border-color:rgba(200,155,74,.1);max-width:200px;margin:.8rem auto;}
+        .footer-copy{font-size:.75rem;color:rgba(245,226,184,.25);}
+
+        /* ANIMATIONS */
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+        .reveal.visible{opacity:1;transform:translateY(0);}
+        .reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease;}
+        .reveal-left.visible{opacity:1;transform:translateX(0);}
+        .reveal-right{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease;}
+        .reveal-right.visible{opacity:1;transform:translateX(0);}
+        .delay-1{transition-delay:.1s!important;}
+        .delay-2{transition-delay:.2s!important;}
+        .delay-3{transition-delay:.3s!important;}
+        .delay-4{transition-delay:.4s!important;}
+        .delay-5{transition-delay:.5s!important;}
+
+        /* MOBILE */
+        @media(max-width:768px){
+            .hero{min-height:auto;padding:5rem 0 3rem;}
+            .hero h1{font-size:3rem;}
+            .hero-badge{right:0;bottom:1.5rem;}
+            .hero-img-frame img{clip-path:none;max-height:65vw;}
+            .hero-img-frame::before,.hero-img-frame::after{display:none;}
+            .hero-stats{gap:1.5rem;}
+            .card-img-wrap img{height:280px;}
+            .modal-img-wrap img{min-height:260px;max-height:320px;}
+            #about{padding:60px 0;}
+            .contact-card{padding:2rem 1.4rem;}
+            .btn-hp,.btn-hg{font-size:.9rem;padding:.8rem 1.4rem;}
+        }
+        @media(max-width:480px){
+            .hero h1{font-size:2.4rem;}
+            .nav-brand{font-size:1.6rem;}
+            .hero-stats{flex-wrap:wrap;gap:1rem;}
+        }
+    </style>
+</head>
+<body>
+
+<div id="loader">
+    <div class="ld-logo">Bohera</div>
+    <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container">
+        <a class="nav-brand" href="#">Bohera</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="color:var(--gold);">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav mx-auto gap-1">
+                <li class="nav-item"><a class="nav-link" href="#products">المجموعة</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">عن بوهيرا</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">تواصل</a></li>
+            </ul>
+            <a href="https://wa.me/201029396885" class="nav-link btn-nav-cta mt-2 mt-lg-0">
+                <i class="fab fa-whatsapp me-1"></i> اطلبي الآن
+            </a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="container position-relative" style="z-index:2;">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6 order-2 order-lg-1">
+                <p class="hero-eyebrow">مجموعة 2026</p>
+                <h1>تُراثٌ<br/><em>يُلبَس</em></h1>
+                <p class="hero-desc">أزياء بوهيمية مستوحاة من عمق التراث النوبي، مُصنَّعة من الكتان الطبيعي بتطريز يدوي أصيل.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#products" class="btn-hp"><i class="fas fa-gem me-2"></i>تسوّقي المجموعة</a>
+                    <a href="https://wa.me/201029396885" target="_blank" class="btn-hg"><i class="fab fa-whatsapp me-1"></i> واتساب</a>
+                </div>
+                <div class="hero-stats">
+                    <div><div class="hero-stat-num">٦</div><div class="hero-stat-label">قطع حصرية</div></div>
+                    <div><div class="hero-stat-num">١٠٠٪</div><div class="hero-stat-label">كتان طبيعي</div></div>
+                    <div><div class="hero-stat-num">يدوي</div><div class="hero-stat-label">تطريز أصيل</div></div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 order-1 order-lg-2">
+                <div class="hero-img-frame">
+                    <img src="1.jpeg" alt="Bohera Look"/>
+                    <div class="hero-badge">
+                        <div class="hero-badge-num">✦ بوهيرا</div>
+                        <div class="hero-badge-txt">موضة أصيلة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-hint"><i class="fas fa-chevron-down"></i><span>اكتشفي</span></div>
+</section>
+
+<div class="marquee-strip">
+    <div class="marquee-track">
+        <span class="marquee-item">كتان طبيعي <i class="fas fa-leaf"></i></span>
+        <span class="marquee-item">تطريز يدوي <i class="fas fa-hands"></i></span>
+        <span class="marquee-item">تراث نوبي <i class="fas fa-star-and-crescent"></i></span>
+        <span class="marquee-item">بوهيمي أصيل <i class="fas fa-feather"></i></span>
+        <span class="marquee-item">توصيل لجميع أنحاء مصر <i class="fas fa-truck"></i></span>
+        <span class="marquee-item">كتان طبيعي <i class="fas fa-leaf"></i></span>
+        <span class="marquee-item">تطريز يدوي <i class="fas fa-hands"></i></span>
+        <span class="marquee-item">تراث نوبي <i class="fas fa-star-and-crescent"></i></span>
+        <span class="marquee-item">بوهيمي أصيل <i class="fas fa-feather"></i></span>
+        <span class="marquee-item">توصيل لجميع أنحاء مصر <i class="fas fa-truck"></i></span>
+    </div>
+</div>
+
+<section id="products">
+    <div class="container">
+        <div class="text-center reveal">
+            <span class="sec-eyebrow">الكولكشن الحصري</span>
+            <h2 class="sec-title">أزياء بوهيرا</h2>
+        </div>
+        <div class="ornament reveal delay-1"><span>✦</span></div>
+        <div class="row g-4">
+
+            <div class="col-sm-6 col-lg-4 reveal delay-1">
+                <div class="product-card" onclick="openModal(0)">
+                    <span class="price-badge">3400 EG</span><span class="suit-badge">سوت كامل</span>
+                    <div class="card-img-wrap">
+                        <img src="1.jpeg" alt="تونيك وبنطال"/>
+                        <div class="card-overlay"><div class="card-overlay-btn"><i class="fas fa-eye"></i> عرض التفاصيل</div></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-sub">تونيك + بنطال</p>
+                        <h5 class="card-name">تونيك كتان مطرز + بنطال واسع</h5>
+                        <div class="tag-list"><span class="tag">كتان ثقيل</span><span class="tag">تطريز تراثي</span><span class="tag">Wide-Leg</span></div>
+                        <button class="btn-card"><i class="fas fa-arrow-left"></i> التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 reveal delay-2">
+                <div class="product-card" onclick="openModal(1)">
+                    <span class="price-badge">6300 EG</span><span class="suit-badge">فستان + فيست</span>
+                    <div class="card-img-wrap">
+                        <img src="2.jpeg" alt="فستان وفيست"/>
+                        <div class="card-overlay"><div class="card-overlay-btn"><i class="fas fa-eye"></i> عرض التفاصيل</div></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-sub">فستان + فيست</p>
+                        <h5 class="card-name">فستان كتان + فيست مطرز يدويًا</h5>
+                        <div class="tag-list"><span class="tag">شمواه</span><span class="tag">V-Neck</span><span class="tag">High-Low</span></div>
+                        <button class="btn-card"><i class="fas fa-arrow-left"></i> التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 reveal delay-3">
+                <div class="product-card" onclick="openModal(2)">
+                    <span class="price-badge">4900 EG</span><span class="suit-badge">سوت كامل</span>
+                    <div class="card-img-wrap">
+                        <img src="3.jpeg" alt="كارديجان وجمبسوت"/>
+                        <div class="card-overlay"><div class="card-overlay-btn"><i class="fas fa-eye"></i> عرض التفاصيل</div></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-sub">كارديجان + جمبسوت</p>
+                        <h5 class="card-name">كارديجان نوبي بوهيمي + جمبسوت</h5>
+                        <div class="tag-list"><span class="tag">تراث نوبي</span><span class="tag">شراشيب</span><span class="tag">بوهيمي</span></div>
+                        <button class="btn-card"><i class="fas fa-arrow-left"></i> التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 reveal delay-1">
+                <div class="product-card" onclick="openModal(3)">
+                    <span class="price-badge">2500 EG</span><span class="suit-badge">سوت كامل</span>
+                    <div class="card-img-wrap">
+                        <img src="4.jpeg" alt="بلوزة ومكرميه"/>
+                        <div class="card-overlay"><div class="card-overlay-btn"><i class="fas fa-eye"></i> عرض التفاصيل</div></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-sub">بلوزة + بنطال</p>
+                        <h5 class="card-name">بلوزة مطرزة + بنطال مكرميه وشراشيب</h5>
+                        <div class="tag-list"><span class="tag">مكرميه</span><span class="tag">شراشيب</span><span class="tag">Wide-Leg</span></div>
+                        <button class="btn-card"><i class="fas fa-arrow-left"></i> التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 reveal delay-2">
+                <div class="product-card" onclick="openModal(4)">
+                    <span class="price-badge">6000 EG</span><span class="suit-badge">فستان</span>
+                    <div class="card-img-wrap">
+                        <img src="5.jpeg" alt="فستان بوهيمي"/>
+                        <div class="card-overlay"><div class="card-overlay-btn"><i class="fas fa-eye"></i> عرض التفاصيل</div></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-sub">فستان</p>
+                        <h5 class="card-name">فستان Vintage Boho المطرز</h5>
+                        <div class="tag-list"><span class="tag">Puff Sleeves</span><span class="tag">High-Low</span><span class="tag">Vest Style</span></div>
+                        <button class="btn-card"><i class="fas fa-arrow-left"></i> التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 reveal delay-3">
+                <div class="product-card" onclick="openModal(5)">
+                    <span class="price-badge">3000 EG</span><span class="suit-badge">سوت كامل</span>
+                    <div class="card-img-wrap">
+                        <img src="6.jpeg" alt="بلوزة هندسية"/>
+                        <div class="card-overlay"><div class="card-overlay-btn"><i class="fas fa-eye"></i> عرض التفاصيل</div></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-sub">بلوزة + بنطال</p>
+                        <h5 class="card-name">بلوزة هندسية + بنطال مطرز واسع</h5>
+                        <div class="tag-list"><span class="tag">نقوش هندسية</span><span class="tag">تطريز داكن</span><span class="tag">Wide-Leg</span></div>
+                        <button class="btn-card"><i class="fas fa-arrow-left"></i> التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <div class="row gy-5 align-items-center">
+            <div class="col-lg-5 reveal-left">
+                <span class="sec-eyebrow">من نحن</span>
+                <h2 class="sec-title">روح التراث<br/>بأسلوب حرّ</h2>
+                <div class="ornament" style="justify-content:flex-start;max-width:300px;"><span>✦</span></div>
+                <p class="about-text">بوهيرا علامة مصرية تُحيي جمال التطريز التراثي وتمزجه بروح البوهيميا الحرة. كل قطعة مُصنَّعة يدويًا من الكتان الطبيعي، تحمل زخارف مستوحاة من النوبة وعمق مصر.</p>
+                <a href="https://wa.me/201029396885" target="_blank" class="btn-wa-outline">
+                    <i class="fab fa-whatsapp"></i> تواصلي معنا
+                </a>
+            </div>
+            <div class="col-lg-6 offset-lg-1 reveal-right">
+                <div class="row g-3">
+                    <div class="col-6"><div class="feature-card reveal delay-1">
+                        <div class="feature-icon"><i class="fas fa-hands"></i></div>
+                        <h5 class="feature-title">صنع يدوي</h5>
+                        <p class="feature-desc">كل تطريز يُنجَز بعناية يدوية لا تُضاهيها الآلة</p>
+                    </div></div>
+                    <div class="col-6"><div class="feature-card reveal delay-2">
+                        <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                        <h5 class="feature-title">كتان طبيعي</h5>
+                        <p class="feature-desc">خامات مختارة صديقة للبيئة ومريحة على البشرة</p>
+                    </div></div>
+                    <div class="col-6"><div class="feature-card reveal delay-3">
+                        <div class="feature-icon"><i class="fas fa-star-and-crescent"></i></div>
+                        <h5 class="feature-title">تراث أصيل</h5>
+                        <p class="feature-desc">زخارف نوبية ومصرية عريقة في كل تفصيلة</p>
+                    </div></div>
+                    <div class="col-6"><div class="feature-card reveal delay-4">
+                        <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                        <h5 class="feature-title">توصيل سريع</h5>
+                        <p class="feature-desc">نوصّل لجميع أنحاء مصر بأمان</p>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="text-center reveal">
+            <span class="sec-eyebrow">تواصلي معنا</span>
+            <h2 class="sec-title">اطلبي قطعتك الآن</h2>
+        </div>
+        <div class="ornament reveal delay-1"><span>✦</span></div>
+        <div class="contact-card reveal delay-2">
+            <h3>نحن هنا لكِ</h3>
+            <p>للطلب والاستفسار، تواصلي معنا مباشرة عبر واتساب وسنرد عليكِ في أسرع وقت ممكن.</p>
+            <a href="https://wa.me/201029396885" target="_blank" class="btn-wa">
+                <i class="fab fa-whatsapp fa-lg"></i> 01029396885
+            </a>
+            <p class="contact-note">متاحون يومياً · رد سريع</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-brand">Bohera · بوهيرا</div>
+    <div class="footer-tagline">موضة بوهيمية · كتان طبيعي · تطريز يدوي</div>
+    <hr class="footer-divider"/>
+    <div class="footer-copy">© 2026 Bohera. جميع الحقوق محفوظة.</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal fade" id="productModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button class="modal-close-btn" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-5 modal-img-wrap">
+                        <img id="modalImg" src="" alt=""/>
+                        <div class="modal-img-price">
+                            <small>السعر الإجمالي</small>
+                            <span id="modalPriceText"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="modal-body-inner">
+                            <div class="modal-sec-lbl">تفاصيل القطع</div>
+                            <div id="modalPieces"></div>
+                            <div class="modal-sec-lbl">المواصفات</div>
+                            <div class="modal-tags" id="modalTags"></div>
+                            <a id="modalWa" href="#" target="_blank" class="btn-modal-wa">
+                                <i class="fab fa-whatsapp fa-lg"></i> اطلبي الآن عبر واتساب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('hide'),1800);});
+    window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('scrolled',scrollY>50);});
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.observe(el));
+
+    const products=[
+        {title:'سوت تونيك كتان مطرز + بنطال واسع',price:'3400 جنيه',img:'1.jpeg',
+            pieces:[{name:'التونيك — تونيك كتان مطرز',desc:'تونيك طويل بلون طوبي دافئ، بياقة قميص ورباط أمامي متقاطع، بتطريز تراثي بارز.',fabric:'كتان طبيعي ثقيل'},{name:'البنطال — كتان واسع بأطراف مطرزة',desc:'بنطال فضفاض واسع الساق (Wide-leg) بلون كريمي طبيعي، ينتهي بشريط تطريز عند الحافة السفلية.',fabric:'كتان'}],
+            tags:['كتان طبيعي ثقيل','تطريز تراثي','Wide-Leg','لون طوبي','لون كريمي']},
+        {title:'فستان كتان + فيست مطرز يدويًا',price:'6300 جنيه',img:'2.jpeg',
+            pieces:[{name:'الفيست — مطرز يدويًا',desc:'فيست قصير مفتوح باللون الطوبي والنيلي، مزين بتطريز هندسي تراثي بارز، مع دلايات معدنية وشراشيب ملونة صغيرة على الحواف.',fabric:'شمواه'},{name:'الفستان — كتان متموج بشراشيب',desc:'فستان طويل بلون كريمي طبيعي، بياقة V-neck، وأكمام واسعة تنتهي بتطريز. يتميز بقصة مختلفة الطول (High-Low) من الأسفل.',fabric:'كتان طبيعي'}],
+            tags:['شمواه','كتان طبيعي','V-Neck','High-Low','دلايات معدنية','شراشيب ملونة']},
+        {title:'كارديجان نوبي بوهيمي + جمبسوت',price:'4900 جنيه',img:'3.jpeg',
+            pieces:[{name:'الكارديجان — بوهيمي طويل مطرز',desc:'كارديجان بوهيمي طويل مفتوح بتطريزات مستوحاة من التراث النوبي، مع أكمام واسعة وشراشيب ناعمة على الحواف السفلية.',fabric:'كتان'},{name:'الجمبسوت — كتان برباط حزام',desc:'جمبسوت كاجوال مريح بلون أوف وايت (كريمي)، بياقة مربعة وحزام عريض.',fabric:'كتان'}],
+            tags:['كتان','تراث نوبي','شراشيب ناعمة','أوف وايت','حزام عريض']},
+        {title:'بلوزة مطرزة + بنطال مكرميه وشراشيب',price:'2500 جنيه',img:'4.jpeg',
+            pieces:[{name:'البلوزة — كتان مطرزة',desc:'بلوزة كريمي فضفاضة، تتميز بتطريز ناعم على الياقة والأطراف.',fabric:'كتان طبيعي'},{name:'البنطال — واسع بمكرميه وشراشيب',desc:'بنطال طوبي ينتهي بشغل مكرميه مفرغ وشراشيب كثيفة.',fabric:'كتان'}],
+            tags:['كتان طبيعي','Wide-Leg','مكرميه مفرغ','شراشيب كثيفة','لون طوبي']},
+        {title:'فستان بوهيمي Vintage Boho المطرز',price:'6000 جنيه',img:'5.jpeg',
+            pieces:[{name:'الفستان — Vintage Boho Dress',desc:'فستان بتصميم فريد بطبقة علوية تشبه الفيست (Vest style) برباط أمامي متقاطع وتطريز بالزخارف التراثية، مع أكمام بف واسعة (Puff Sleeves) تنتهي بأساور مطرزة، وتنورة واسعة كلوش غير متساوية الطول بحافة مزينة بشراشيب ناعمة.',fabric:'كتان طبيعي'}],
+            tags:['كتان طبيعي','Puff Sleeves','High-Low','Vest Style','أساور مطرزة','شراشيب ناعمة']},
+        {title:'بلوزة هندسية + بنطال مطرز واسع',price:'3000 جنيه',img:'6.jpeg',
+            pieces:[{name:'البلوزة — نقوش هندسية',desc:'بلوزة فضفاضة بلون أوف وايت (كريمي)، بأكمام واسعة تنتهي بتطريز هندسي داكن، مع رقعة تطريز أمامية مربعة.',fabric:'كتان طبيعي'},{name:'البنطال — كتان واسع مطرز',desc:'بنطال بقصة فضفاضة (Wide-leg)، له كنار عريض من التطريز التراثي الداكن عند الحافة السفلية، وينتهي بشراشيب قطنية ناعمة.',fabric:'كتان طبيعي'}],
+            tags:['كتان طبيعي','نقوش هندسية','Wide-Leg','تطريز داكن','شراشيب قطنية']}
+    ];
+
+    function openModal(i){
+        const p=products[i];
+        document.getElementById('modalTitle').textContent=p.title;
+        document.getElementById('modalPriceText').textContent=p.price;
+        document.getElementById('modalImg').src=p.img;
+        document.getElementById('modalImg').alt=p.title;
+        document.getElementById('modalPieces').innerHTML=p.pieces.map(pc=>`<div class="piece-block"><div class="piece-name">${pc.name}</div><p class="piece-desc">${pc.desc}</p><div class="piece-fabric"><i class="fas fa-leaf me-1"></i>الخامة: ${pc.fabric}</div></div>`).join('');
+        document.getElementById('modalTags').innerHTML=p.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');
+        const msg=encodeURIComponent(`مرحباً، أريد الاستفسار عن: ${p.title} — ${p.price}`);
+        document.getElementById('modalWa').href=`https://wa.me/201029396885?text=${msg}`;
+        new bootstrap.Modal(document.getElementById('productModal')).show();
+    }
+</script>
+</body>
+</html>
