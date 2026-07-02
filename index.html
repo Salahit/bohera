@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Bohera – بوهيرا</title>
+    <link rel="icon" type="image/png" href="logo-icon_2x.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
@@ -23,7 +24,8 @@
         /* LOADER */
         #loader{position:fixed;inset:0;background:var(--brown);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;transition:opacity .6s,visibility .6s;}
         #loader.hide{opacity:0;visibility:hidden;}
-        .ld-logo{font-family:'Amiri',serif;font-size:3.5rem;color:var(--gold);animation:ldpulse 1.5s ease-in-out infinite;}
+        .ld-logo{animation:ldpulse 1.5s ease-in-out infinite;}
+        .ld-logo img{height:72px;width:auto;display:block;}
         .ld-bar{width:140px;height:2px;background:rgba(200,155,74,.15);border-radius:1px;overflow:hidden;}
         .ld-fill{height:100%;width:0;background:var(--gold);animation:ldfill 1.8s ease forwards;}
         @keyframes ldpulse{0%,100%{opacity:.5;transform:scale(.97);}50%{opacity:1;transform:scale(1);}}
@@ -32,7 +34,8 @@
         /* NAVBAR */
         .navbar{background:rgba(29,14,5,.97)!important;border-bottom:2px solid var(--gold);padding:.7rem 1.5rem;position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);transition:box-shadow .3s;}
         .navbar.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.4);}
-        .nav-brand{font-family:'Amiri',serif;font-size:2rem;background:linear-gradient(135deg,var(--gold),var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.06em;text-decoration:none;}
+        .nav-brand{display:inline-flex;align-items:center;text-decoration:none;}
+        .nav-brand img{height:34px;width:auto;display:block;}
         .nav-link{color:var(--sand)!important;font-family:'Tajawal',sans-serif;font-weight:500;font-size:.95rem;letter-spacing:.04em;position:relative;padding:.4rem .8rem!important;transition:color .2s;}
         .nav-link::after{content:'';position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
         .nav-link:hover{color:var(--gold)!important;}
@@ -156,7 +159,8 @@
 
         /* FOOTER */
         footer{background:var(--dark);padding:2.5rem 2rem;text-align:center;border-top:2px solid rgba(200,155,74,.15);}
-        .footer-brand{font-family:'Amiri',serif;font-size:2rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem;}
+        .footer-brand{display:inline-flex;justify-content:center;margin-bottom:.6rem;}
+        .footer-brand img{height:38px;width:auto;display:block;}
         .footer-tagline{font-size:.78rem;color:rgba(245,226,184,.35);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;}
         .footer-divider{border-color:rgba(200,155,74,.1);max-width:200px;margin:.8rem auto;}
         .footer-copy{font-size:.75rem;color:rgba(245,226,184,.25);}
@@ -190,7 +194,7 @@
         }
         @media(max-width:480px){
             .hero h1{font-size:2.4rem;}
-            .nav-brand{font-size:1.6rem;}
+            .nav-brand img{height:26px;}
             .hero-stats{flex-wrap:wrap;gap:1rem;}
         }
     </style>
@@ -198,13 +202,13 @@
 <body>
 
 <div id="loader">
-    <div class="ld-logo">Bohera</div>
+    <div class="ld-logo"><img src="logo-icon_2x.png" alt="Bohera"/></div>
     <div class="ld-bar"><div class="ld-fill"></div></div>
 </div>
 
 <nav class="navbar navbar-expand-lg" id="mainNav">
     <div class="container">
-        <a class="nav-brand" href="#">Bohera</a>
+        <a class="nav-brand" href="#"><img src="logo-wordmark-gold@2x.png" alt="Bohera"/></a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="color:var(--gold);">
             <i class="fas fa-bars"></i>
         </button>
@@ -437,7 +441,7 @@
 </section>
 
 <footer>
-    <div class="footer-brand">Bohera · بوهيرا</div>
+    <div class="footer-brand"><img src="logo-wordmark-gold@2x.png" alt="Bohera · بوهيرا"/></div>
     <div class="footer-tagline">موضة بوهيمية · كتان طبيعي · تطريز يدوي</div>
     <hr class="footer-divider"/>
     <div class="footer-copy">© 2026 Bohera. جميع الحقوق محفوظة.</div>
